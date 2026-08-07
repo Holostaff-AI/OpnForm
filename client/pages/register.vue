@@ -67,6 +67,8 @@
 <script setup>
 import RegisterForm from "~/components/pages/auth/components/RegisterForm.vue"
 import AppSumoRegister from "~/components/vendor/appsumo/AppSumoRegister.vue"
+import { holostaff } from '@holostaff/sdk'
+import { onMounted } from 'vue'
 
 definePageMeta({
   middleware: ["self-hosted", "guest"],
@@ -89,4 +91,12 @@ const isInvited = computed(() => {
 const showAppSumoPanel = computed(() => {
   return Boolean(route.query.appsumo_license || route.query.appsumo_error)
 })
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "mutual commit" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('mutual_commit')) // entry page for "Sign up"
+
 </script>
