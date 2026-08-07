@@ -120,6 +120,8 @@ import AdvancedFormUrlSettingsPopover from "~/components/pages/forms/show/Advanc
 import SocialShareButton from "~/components/pages/forms/show/SocialShareButton.vue"
 import EmbedFormAsPopupModal from "~/components/pages/forms/show/EmbedFormAsPopupModal.vue"
 import CopyContent from "~/components/open/forms/components/CopyContent.vue"
+import { holostaff } from '@holostaff/sdk'
+import { onMounted } from 'vue'
 
 const props = defineProps({
   form: { type: Object, required: true },
@@ -153,4 +155,12 @@ const share_url = computed(() => {
     ? props.form.share_url + "?" + shareUrlForQueryParams.value
     : props.form.share_url + shareUrlForQueryParams.value
 })
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "adoption" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('adoption')) // entry page for "Share a form"
+
 </script>
