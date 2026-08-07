@@ -3,7 +3,7 @@
     "version": 1,
     "sourceId": "ks_msivmf8a_3dfha8",
     "sourceName": "OpnForm",
-    "artifactVersion": 3,
+    "artifactVersion": 4,
     "editsKey": "963d4b88d49049b30d544572b7bfe5e229963558",
     "stageCopilots": {
       "awareness": null,
@@ -14,8 +14,8 @@
       "adoption": "rig-opnform-copilot",
       "expansion": "rig-opnform-copilot"
     },
-    "deployId": "deploy_v3_2026-08-07T19-30",
+    "deployId": "deploy_v4_2026-08-07T23-41",
     "triggeredBy": "xY8Ee8Lo7aZc09uYvTdo6yzNvWm1",
-    "triggeredAt": "2026-08-07T19:30:11.096Z"
+    "triggeredAt": "2026-08-07T23:41:40.661Z"
   }
 }
