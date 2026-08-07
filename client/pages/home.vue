@@ -162,6 +162,8 @@ import FormCard from "~/components/pages/home/FormCard.vue"
 import FormCardSkeleton from "~/components/pages/home/FormCardSkeleton.vue"
 import TrackClick from "~/components/global/TrackClick.vue"
 import UpgradeBanner from "~/components/dashboard/UpgradeBanner.vue"
+import { holostaff } from '@holostaff/sdk'
+import { onMounted } from 'vue'
 
 definePageMeta({
   middleware: ["auth"],
@@ -256,4 +258,12 @@ const enrichedForms = computed(() => {
   const results = fuseResults.value
   return results && results.length > 0 ? results.map((r) => r.item) : base
 })
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "adoption" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('adoption')) // entry page for "Create a form"
+
 </script>
