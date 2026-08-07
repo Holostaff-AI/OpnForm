@@ -26,13 +26,14 @@
 </template>
 
 <script setup>
-import { watch } from "vue"
+import { watch, onMounted } from 'vue'
 import { initForm } from "~/composables/forms/initForm.js"
 import FormEditor from "~/components/open/forms/components/FormEditor.vue"
 import CreateFormBaseModal from "../../../components/pages/forms/create/CreateFormBaseModal.vue"
 import { resolveCreateFormState } from "~/lib/forms/resolve-create-form-state.js"
 import { hash } from "~/lib/utils.js"
 import { onBeforeRouteLeave } from "vue-router"
+import { holostaff } from '@holostaff/sdk'
 
 definePageMeta({
   middleware: "auth",
@@ -139,4 +140,12 @@ const isDirty = () => {
     formInitialHash.value !== hash(JSON.stringify(form.value.data()))
   )
 }
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "adoption" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('adoption')) // entry page for "Create a form"
+
 </script>
