@@ -172,6 +172,8 @@ import LiveDemo from "~/components/pages/welcome/LiveDemo.vue"
 import Features from "~/components/pages/welcome/Features.vue"
 import MoreFeatures from "../components/pages/welcome/MoreFeatures.vue"
 import { useIsAuthenticated } from "~/composables/useAuthFlow"
+import { holostaff } from '@holostaff/sdk'
+import { onMounted } from 'vue'
 
 definePageMeta({
   layout: "default",
@@ -185,6 +187,14 @@ useOpnSeoMeta({
 })
 
 const { isAuthenticated: authenticated } = useIsAuthenticated()
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "mutual commit" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('mutual_commit')) // entry page for "Sign up", "Guest form creation to signup"
+
 </script>
 
 <style lang="scss" scoped>
