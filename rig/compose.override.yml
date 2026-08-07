@@ -1,0 +1,56 @@
+# Holostaff deployment-rig override for the OpnForm target
+# (holostaff-agent documents/prd-test-rig.md).
+#
+# Layered ON TOP of the project's own docker-compose.yml so the rig
+# serves exactly the stack a self-hoster runs, with three changes:
+#
+#   1. `ui` builds from THIS checkout (merged Holostaff PRs touch
+#      client/, so a prebuilt image would prove nothing).
+#   2. env_file points at rig-local throwaways committed here, instead
+#      of the api/.env + client/.env that scripts/setup-env.sh writes.
+#   3. `ingress` publishes on RIG_APP_PORT instead of 80.
+#
+# Invoked by the rig runner as:
+#
+#   docker compose -f docker-compose.yml -f rig/compose.override.yml \
+#     down -v && up -d --build
+#
+# with RIG_APP_PORT / RIG_PUBLIC_ORIGIN in the environment. Fresh DB
+# every run → the app boots with setup_required, and the rig's
+# simulated user creates the first admin through /setup.
+#
+# The `api` service keeps the published jhumanj/opnform-api image: the
+# Holostaff instrumentation only ever touches the Nuxt client, so
+# rebuilding PHP would add ~10 min per run and prove nothing.
+
+services:
+  ui:
+    image: rig-opnform-client:latest
+    # Relative paths resolve against the PROJECT directory (the first
+    # -f file's dir = the repo root), not this file's dir.
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.client
+    env_file: !override
+      - ./rig/client.env
+    environment:
+      NUXT_PUBLIC_APP_URL: ${RIG_PUBLIC_ORIGIN:-http://localhost:4183}
+
+  api:
+    env_file: !override
+      - ./rig/api.env
+    environment:
+      APP_URL: ${RIG_PUBLIC_ORIGIN:-http://localhost:4183}
+      FRONT_URL: ${RIG_PUBLIC_ORIGIN:-http://localhost:4183}
+
+  api-worker:
+    env_file: !override
+      - ./rig/api.env
+
+  api-scheduler:
+    env_file: !override
+      - ./rig/api.env
+
+  ingress:
+    ports: !override
+      - '${RIG_APP_PORT:-4183}:80'
