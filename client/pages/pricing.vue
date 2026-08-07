@@ -734,6 +734,8 @@
 import FeatureComparison from "~/components/pages/pricing/FeatureComparison.vue"
 import FaqSection from "~/components/pages/FaqSection.vue"
 import { useIsAuthenticated } from "~/composables/useAuthFlow"
+import { holostaff } from '@holostaff/sdk'
+import { onMounted } from 'vue'
 
 definePageMeta({
   layout: "default",
@@ -933,4 +935,12 @@ const handleEnterpriseCta = () => handlePlanCta("enterprise")
 const contactUs = () => {
   useCrisp().openAndShowChat()
 }
+
+// ── Holostaff instrumentation ──────────────────────────────────
+// Added by the Holostaff deploy agent (OpnForm · deploy v1).
+// Marks the visitor entering the "mutual commit" journey stage when
+// this entry page mounts — powers stage-aware copilot monitoring.
+// Safe to relocate; keep one call per entry page. https://docs.holostaff.ai
+onMounted(() => holostaff.markStageEntry('mutual_commit')) // entry page for "Sign up"
+
 </script>
