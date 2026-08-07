@@ -1,0 +1,21 @@
+{
+  "holostaff": {
+    "version": 1,
+    "sourceId": "ks_msivmf8a_3dfha8",
+    "sourceName": "OpnForm",
+    "artifactVersion": 3,
+    "editsKey": "963d4b88d49049b30d544572b7bfe5e229963558",
+    "stageCopilots": {
+      "awareness": null,
+      "education": null,
+      "selection": null,
+      "mutual_commit": "rig-opnform-copilot",
+      "onboarding": "rig-opnform-copilot",
+      "adoption": "rig-opnform-copilot",
+      "expansion": "rig-opnform-copilot"
+    },
+    "deployId": "deploy_v3_2026-08-07T19-30",
+    "triggeredBy": "xY8Ee8Lo7aZc09uYvTdo6yzNvWm1",
+    "triggeredAt": "2026-08-07T19:30:11.096Z"
+  }
+}
