@@ -1,0 +1,33 @@
+{
+  "serve": {
+    "env": {
+      "RIG_APP_PORT": "4183"
+    },
+    "envChecks": [
+      {
+        "container": "opnform-client",
+        "expect": "http://localhost:4183",
+        "var": "NUXT_PUBLIC_APP_URL"
+      },
+      {
+        "container": "opnform-api",
+        "expect": "http://localhost:4183",
+        "var": "APP_URL"
+      }
+    ],
+    "files": [
+      "docker-compose.yml",
+      "rig/compose.override.yml"
+    ],
+    "healthTimeoutMs": 600000,
+    "healthUrl": "http://localhost:4183/login",
+    "kind": "compose",
+    "workDir": "."
+  },
+  "state": {
+    "defaultFixture": "maya-fresh",
+    "fixtureConfig": "targets/opnform.fixture.json"
+  },
+  "target": "opnform",
+  "version": 0
+}
